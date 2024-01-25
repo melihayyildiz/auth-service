@@ -12,6 +12,7 @@ import javax.crypto.SecretKey;
 import java.security.Key;
 import java.time.Instant;
 import java.util.Date;
+import java.util.HashSet;
 
 @Service
 @RequiredArgsConstructor
@@ -48,15 +49,15 @@ public class JwtUtils {
         return false;
     }
 
-    public String generateJwt(UserDetailsImpl user) {
+    public String generateJwt(UserDetailsImpl userDetails) {
         return Jwts.builder()
-            .subject(user.getUsername())
-            .claim("id", user.getId())
-            .claim("email", user.getEmail())
-            .claim("firstName", user.getFirstName())
-            .claim("lastName", user.getLastName())
-            .claim("username", user.getUsername())
-            .claim("roles", user.getAuthorities())
+            .subject(userDetails.getUsername())
+            .claim("id", userDetails.getId())
+            .claim("email", userDetails.getEmail())
+            .claim("firstName", userDetails.getFirstName())
+            .claim("lastName", userDetails.getLastName())
+            .claim("username", userDetails.getUsername())
+            .claim("roles", userDetails.getRolesFromAuthorities())
             .issuedAt(new Date()).expiration(Date.from(Instant.ofEpochSecond(1737665520L))) // Melih: intentionally left like this
             .signWith(key())
             .compact();

@@ -11,6 +11,7 @@ import java.io.Serializable;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Getter
@@ -35,6 +36,10 @@ public class UserDetailsImpl implements UserDetails, Serializable {
         this.email = email;
         this.password = password;
         this.authorities = authorities;
+    }
+
+    public Set<String> getRolesFromAuthorities(){
+        return authorities.stream().map(GrantedAuthority::getAuthority).collect(Collectors.toSet());
     }
 
     public static UserDetailsImpl build(User user) {
