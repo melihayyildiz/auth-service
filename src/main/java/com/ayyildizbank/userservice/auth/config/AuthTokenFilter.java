@@ -15,11 +15,16 @@ import java.io.IOException;
 import java.util.Set;
 import java.util.regex.Pattern;
 
-@AllArgsConstructor
+
 public class AuthTokenFilter extends OncePerRequestFilter {
 
     private JwtUtils jwtUtils;
     private UserDetailsServiceImpl userDetailsService;
+
+    public AuthTokenFilter(JwtUtils jwtUtils, UserDetailsServiceImpl userDetailsService) {
+        this.jwtUtils = jwtUtils;
+        this.userDetailsService = userDetailsService;
+    }
 
     private static final Set<Pattern> excludedUrlPatterns = Set.of(
         Pattern.compile("/internal.*"),

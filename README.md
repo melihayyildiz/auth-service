@@ -4,6 +4,7 @@ This service caters to user-create and login use cases
 
 You can use Login and Signup requests on the attached postman file (Melih-v1.postman_collection.json), located under root directory
 Default Port: 8081
+Also, swagger is available on http://localhost:8081/swagger-ui/index.html
 
 Api version is v1, and it is provided by Accept header "application/vnd.melih.api.v1+json"
 
