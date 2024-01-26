@@ -22,6 +22,9 @@ public class JwtUtils {
     @Value("${app.jwt-secret}")
     private String jwtSecret;
 
+    @Value("${app.jwt-expiration}")
+    private Long jwtExpiration;
+
     public String getUserNameFromJwtToken(String token) {
         return Jwts.parser().setSigningKey(key()).build()
             .parseClaimsJws(token).getBody().getSubject();
@@ -58,7 +61,7 @@ public class JwtUtils {
             .claim("lastName", userDetails.getLastName())
             .claim("username", userDetails.getUsername())
             .claim("roles", userDetails.getRolesFromAuthorities())
-            .issuedAt(new Date()).expiration(Date.from(Instant.ofEpochSecond(1737665520L))) // Melih: intentionally left like this
+            .issuedAt(new Date()).expiration(Date.from(Instant.ofEpochSecond(jwtExpiration)))
             .signWith(key())
             .compact();
     }

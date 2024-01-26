@@ -32,15 +32,14 @@ import static com.ayyildizbank.userservice.exception.ErrorEnum.*;
 @Slf4j
 public class AuthService {
 
+
     private final UserRepository userRepository;
     private final RoleRepository roleRepository;
     private final PasswordEncoder passwordEncoder;
     private final AuthenticationManager authenticationManager;
     private final JwtUtils jwtUtils;
 
-
-    public LoginResponse login(LoginRequest loginRequest){
-
+    public LoginResponse login(LoginRequest loginRequest) {
         Authentication authentication = authenticationManager
             .authenticate(new UsernamePasswordAuthenticationToken(loginRequest.getUsername(), loginRequest.getPassword()));
         SecurityContextHolder.getContext().setAuthentication(authentication);
@@ -52,8 +51,15 @@ public class AuthService {
     }
 
     @Transactional
-    public void signUp(SignUpRequest signUpRequest){
-        if(userRepository.existsByUsername(signUpRequest.getUsername())) {
+    public void signUp(SignUpRequest signUpRequest) {
+        validateSignUpRequest(signUpRequest);
+        User user = createUser(signUpRequest);
+        userRepository.save(user);
+        log.info("AuthService.signUp signUp is successful for {}", signUpRequest.getUsername());
+    }
+
+    private void validateSignUpRequest(SignUpRequest signUpRequest) {
+        if (userRepository.existsByUsername(signUpRequest.getUsername())) {
             throw new ApplicationException(USERNAME_EXISTS, Map.of("username", signUpRequest.getUsername()));
         }
         if (userRepository.existsByEmail(signUpRequest.getEmail())) {
@@ -62,17 +68,19 @@ public class AuthService {
         if (!roleRepository.existsById(signUpRequest.getRoleId())) {
             throw new ApplicationException(ROLE_DOES_NOT_EXIST, Map.of("id", signUpRequest.getRoleId()));
         }
+    }
+
+    private User createUser(SignUpRequest signUpRequest) {
         String password = passwordEncoder.encode(signUpRequest.getPassword());
-        User user = User.builder().
-                    id(null)
+        Role role = Role.builder().id(signUpRequest.getRoleId()).build();
+        return User.builder()
             .username(signUpRequest.getUsername())
             .firstName(signUpRequest.getFirstName())
             .lastName(signUpRequest.getLastName())
             .email(signUpRequest.getEmail())
-            .roles(new HashSet<>(Collections.singletonList(Role.builder().id(signUpRequest.getRoleId()).build())))
-            .password(password).build();
-
-        userRepository.save(user);
-        log.info("AuthService.signUp signUp is successful for {}", signUpRequest.getUsername());
+            .roles(new HashSet<>(Collections.singletonList(role)))
+            .password(password)
+            .build();
     }
+
 }

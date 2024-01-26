@@ -15,5 +15,6 @@ spring:
       enabled: true
 app:
   jwt-secret: "IKnowInProductionEnvironmentYouAreGoingToUseSecretManagementOrUseAuthServerLikeKeycloackEtc"
+  jwt-expiration: 1737665520
 server:
   port: 8081
