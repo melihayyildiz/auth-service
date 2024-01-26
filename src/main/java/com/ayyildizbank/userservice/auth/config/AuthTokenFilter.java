@@ -17,6 +17,7 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Set;
 import java.util.regex.Pattern;
+import java.util.stream.Collectors;
 
 @Slf4j
 public class AuthTokenFilter extends OncePerRequestFilter {
@@ -24,16 +25,14 @@ public class AuthTokenFilter extends OncePerRequestFilter {
     private final JwtUtils jwtUtils;
     private final UserDetailsServiceImpl userDetailsService;
 
-    public AuthTokenFilter(JwtUtils jwtUtils, UserDetailsServiceImpl userDetailsService) {
+    private final List<String> excludedUrlPatterns;
+
+    public AuthTokenFilter(JwtUtils jwtUtils, UserDetailsServiceImpl userDetailsService,List<String> excludedUrlPatterns) {
         this.jwtUtils = jwtUtils;
         this.userDetailsService = userDetailsService;
+        this.excludedUrlPatterns = excludedUrlPatterns;
     }
-    private static final Set<Pattern> excludedUrlPatterns = Set.of(
-        Pattern.compile("/internal.*"),
-        Pattern.compile("/_monitoring.*"),
-        Pattern.compile("/h2-console.*"),
-        Pattern.compile("/api/auth.*")
-    );
+
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
@@ -64,9 +63,8 @@ public class AuthTokenFilter extends OncePerRequestFilter {
 
     @Override
     protected boolean shouldNotFilter(HttpServletRequest request) {
-
-        return excludedUrlPatterns
-            .stream()
+        return excludedUrlPatterns.stream().map(Pattern::compile).collect(Collectors.toSet()).
+            stream()
             .anyMatch(pattern -> pattern.matcher(request.getRequestURI()).matches());
     }
 

@@ -2,6 +2,7 @@ package com.ayyildizbank.userservice.auth.config;
 
 import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -18,6 +19,7 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import java.util.List;
 import java.util.regex.Pattern;
 
 @Configuration
@@ -25,6 +27,8 @@ import java.util.regex.Pattern;
 @RequiredArgsConstructor
 public class WebSecurityConfig {
 
+    @Value("${app.exclude-urls}")
+    List<String> excludeUrls;
     private final UserDetailsServiceImpl userDetailsService;
     private final AuthEntryPointJwt unauthorizedHandler;
     private final JwtUtils jwtUtils;
@@ -61,7 +65,7 @@ public class WebSecurityConfig {
                 .anyRequest().authenticated()
             )
             .authenticationProvider(authenticationProvider())
-            .addFilterBefore(new AuthTokenFilter(jwtUtils, userDetailsService), UsernamePasswordAuthenticationFilter.class);
+            .addFilterBefore(new AuthTokenFilter(jwtUtils, userDetailsService, excludeUrls), UsernamePasswordAuthenticationFilter.class);
         http.headers(headers -> headers.frameOptions(frameOption -> frameOption.sameOrigin()));
         return http.build();
     }

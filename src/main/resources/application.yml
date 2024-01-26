@@ -16,5 +16,6 @@ spring:
 app:
   jwt-secret: "IKnowInProductionEnvironmentYouAreGoingToUseSecretManagementOrUseAuthServerLikeKeycloackEtc"
   jwt-expiration: 1737665520
+  exclude-urls: /internal.*, /_monitoring.*, /h2-console.*, /api/auth.*, /swagger-ui.*, /v3/api-docs.*
 server:
   port: 8081
