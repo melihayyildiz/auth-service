@@ -1,0 +1,256 @@
+{
+	"info": {
+		"_postman_id": "f1049e91-5b81-4a91-91c9-a8832824f0d9",
+		"name": "Melih-v1",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "25395907",
+		"_collection_link": "https://trendyol.postman.co/workspace/b691585c-0a69-4e7e-ac28-c8894c050e50/collection/25395907-f1049e91-5b81-4a91-91c9-a8832824f0d9?action=share&source=collection_link&creator=25395907"
+	},
+	"item": [
+		{
+			"name": "Login - User(Auth) Service 8080",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Locale",
+						"value": "tr",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/vnd.melih.api.v1+json",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\":\"melihuser3\",\n    \"password\":\"123asd\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8081/api/auth/login",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"auth",
+						"login"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Signup - User (Auth) Service 8080",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/vnd.melih.api.v1+json",
+						"type": "text"
+					},
+					{
+						"key": "Locale",
+						"value": "tr",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"username\":\"melihuser3\",\n    \"firstName\":\"melih\",\n    \"roleId\":2,\n    \"lastName\":\"ayyildiz\",\n    \"password\":\"123asd\",\n    \"email\":\"melih3@gmail.com\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8081/api/auth/signup",
+					"host": [
+						"localhost"
+					],
+					"port": "8081",
+					"path": [
+						"api",
+						"auth",
+						"signup"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Auction Create - Auction Server (8082)",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJtZWxpaHVzZXIzIiwiaWQiOjIsImVtYWlsIjoibWVsaWgzQGdtYWlsLmNvbSIsImZpcnN0TmFtZSI6Im1lbGloIiwibGFzdE5hbWUiOiJheXlpbGRpeiIsInVzZXJuYW1lIjoibWVsaWh1c2VyMyIsInJvbGVzIjpbIlJPTEVfU0VMTEVSIl0sImlhdCI6MTcwNjIyMDgyMywiZXhwIjoxNzM3NjY1NTIwfQ.3mmTiQTfxUruMDy-l43x-B0jB3EPac9EaVx8RXmB95gG2sb7iTP7VRQaTci3pWiC0CX3s8VJTF7bOXJbE5TuYw",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/vnd.melih.api.v1+json",
+						"type": "text"
+					},
+					{
+						"key": "Locale",
+						"value": "en",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"productId\":\"4\",\n    \"minBid\": 999.00\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8082/api/auction",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"api",
+						"auction"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Auction End - Auction Service (8082)",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "PUT",
+				"header": [
+					{
+						"key": "Accept",
+						"value": "application/vnd.melih.api.v1+json",
+						"type": "text"
+					},
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJtZWxpaHVzZXIzIiwiaWQiOjIsImVtYWlsIjoibWVsaWgzQGdtYWlsLmNvbSIsImZpcnN0TmFtZSI6Im1lbGloIiwibGFzdE5hbWUiOiJheXlpbGRpeiIsInVzZXJuYW1lIjoibWVsaWh1c2VyMyIsInJvbGVzIjpbIlJPTEVfU0VMTEVSIl0sImlhdCI6MTcwNjIxMjkyNywiZXhwIjoxNzM3NjY1NTIwfQ.LsAbnigV2FQZcvIq3w6eEcMzwBDX7BVuodRbW9IvDr5rCmtDQ1Wibv0AiqeeYw3FdbA2cP1-5xkE2-eWOm4b0Q",
+						"type": "text"
+					},
+					{
+						"key": "Locale",
+						"value": "en",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8082/api/auction/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"api",
+						"auction",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Auction List - Auction Service(8082)",
+			"request": {
+				"method": "GET",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJtZWxpaHVzZXIzIiwiaWQiOjIsImVtYWlsIjoibWVsaWgzQGdtYWlsLmNvbSIsImZpcnN0TmFtZSI6Im1lbGloIiwibGFzdE5hbWUiOiJheXlpbGRpeiIsInVzZXJuYW1lIjoibWVsaWh1c2VyMyIsInJvbGVzIjpbIlJPTEVfU0VMTEVSIl0sImlhdCI6MTcwNjIxMjkyNywiZXhwIjoxNzM3NjY1NTIwfQ.LsAbnigV2FQZcvIq3w6eEcMzwBDX7BVuodRbW9IvDr5rCmtDQ1Wibv0AiqeeYw3FdbA2cP1-5xkE2-eWOm4b0Q",
+						"type": "text"
+					}
+				],
+				"url": {
+					"raw": "localhost:8082/api/auction/1",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"api",
+						"auction",
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Auction Bid - Auction Service(8082)",
+			"protocolProfileBehavior": {
+				"disabledSystemHeaders": {
+					"accept": true
+				}
+			},
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Authorization",
+						"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJtZWxpaHVzZXI1IiwiaWQiOjQsImVtYWlsIjoibWVsaWg1QGdtYWlsLmNvbSIsImZpcnN0TmFtZSI6Im1lbGloIiwibGFzdE5hbWUiOiJheXlpbGRpeiIsInVzZXJuYW1lIjoibWVsaWh1c2VyNSIsInJvbGVzIjpbIlJPTEVfQlVZRVIiXSwiaWF0IjoxNzA2MjI1MjM1LCJleHAiOjE3Mzc2NjU1MjB9.934EzJEyzkov56-s-R6LubH8bJFAEcMV5yJ2mq6MB6URbxqcEWk3dTDWOIngXSLHtvnABTGrF6GlWVGyMh_3Yg",
+						"type": "text"
+					},
+					{
+						"key": "Accept",
+						"value": "application/vnd.melih.api.v1+json",
+						"type": "text"
+					},
+					{
+						"key": "Locale",
+						"value": "en",
+						"type": "text"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"auctionId\": \"1\",\n    \"bidAmount\": \"10007\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "localhost:8082/api/bid",
+					"host": [
+						"localhost"
+					],
+					"port": "8082",
+					"path": [
+						"api",
+						"bid"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
