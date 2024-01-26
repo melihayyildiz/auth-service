@@ -1,6 +1,5 @@
 package com.ayyildizbank.userservice.controller;
 
-import com.ayyildizbank.userservice.UserServiceApplication;
 import com.ayyildizbank.userservice.payload.request.LoginRequest;
 import com.ayyildizbank.userservice.payload.request.SignUpRequest;
 import com.ayyildizbank.userservice.payload.response.CustomResponse;
@@ -12,14 +11,11 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.client.TestRestTemplate;
 import org.springframework.boot.test.web.server.LocalServerPort;
-import org.springframework.http.HttpEntity;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpMethod;
-import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 @ExtendWith(SpringExtension.class)
-@SpringBootTest(classes = UserServiceApplication.class, webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
+@SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class AuthControllerIntegrationTest {
     @LocalServerPort
@@ -74,6 +70,31 @@ class AuthControllerIntegrationTest {
 
         Assertions.assertTrue(response.getBody().isSuccess());
         Assertions.assertFalse(signupResponse.getToken().isBlank());
+
+    }
+
+    @Test
+    @Order(3)
+    void testLoginWithoutSignup() {
+        HttpHeaders headers = new HttpHeaders();
+        headers.add("Accept", "application/vnd.melih.api.v1+json");
+        LoginRequest loginRequest = new LoginRequest();
+        loginRequest.setUsername("user");
+        loginRequest.setPassword("userpass");
+
+        HttpEntity<LoginRequest> entity = new HttpEntity<>(loginRequest, headers);
+
+        ResponseEntity<CustomResponse> response = restTemplate.exchange(
+            createURLWithPort("/api/auth/login"),
+            HttpMethod.POST, entity, CustomResponse.class);
+
+        ObjectMapper mapper = new ObjectMapper();
+
+        SignupResponse signupResponse = mapper.convertValue(response.getBody().getData(), new TypeReference<SignupResponse>() { });
+
+        Assertions.assertFalse(response.getBody().isSuccess());
+        Assertions.assertEquals(response.getStatusCode(), HttpStatus.UNAUTHORIZED);
+
 
     }
 
