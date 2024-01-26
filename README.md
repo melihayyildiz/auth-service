@@ -1,17 +1,31 @@
-# auth-service
+# Auth Service
 
-This service caters to user-create and login use cases
+This service caters to user-create and login use cases.
 
-You can use Login and Signup requests on the attached postman file (Melih-v1.postman_collection.json), located under root directory
+## Postman Collection
+You can use the Login and Signup requests provided in the attached Postman file (`Melih-v1.postman_collection.json`), located under the root directory.
+
+## Default Port
 Default Port: 8081
-Also, swagger is available on http://localhost:8081/swagger-ui/index.html
 
-Api version is v1, and it is provided by Accept header "application/vnd.melih.api.v1+json"
+## Swagger
+Swagger is available on [http://localhost:8081/swagger-ui/index.html](http://localhost:8081/swagger-ui/index.html)
 
-There are 2 locales, Turkish and English(default). If you want to change the locale, simply add Locale(en or tr) header to your requests.
+## API Version
+Api version is v1, and it is provided by the Accept header `application/vnd.melih.api.v1+json`.
 
-There are 2 built-in roles, which are created automatically on roles table via data.sql in resource folder. To create seller, simply set roleId = 1 on the signup request body. For creating buyer, you should set it to 2
+## Locales
+There are 2 locales: Turkish and English (default). To change the locale, simply add a `Locale` header to your requests with values `en` or `tr`.
 
-Successfull login responds with signed JWT token, which can be used on auction service requests.
+## Built-in Roles
+There are 2 built-in roles, automatically created on the roles table via `data.sql` in the resource folder.
+- To create a seller, set `roleId = 1` on the signup request body.
+- To create a buyer, set it to `2`.
 
-H2 database is available on http://localhost:8081/h2-console/  via username:sa and password:password
+## Successful Login
+A successful login responds with a signed JWT token, which can be used on auction service requests.
+
+## H2 Database
+H2 database is available on [http://localhost:8081/h2-console/](http://localhost:8081/h2-console/) with the following credentials:
+- Username: sa
+- Password: password
