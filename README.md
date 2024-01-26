@@ -1,6 +1,6 @@
 # Auth Service
 
-This service caters to user-create and login use cases.
+This service caters to signup and login use cases.
 
 ## Postman Collection
 You can use the Login and Signup requests provided in the attached Postman file (`Melih-v1.postman_collection.json`), located under the root directory.
