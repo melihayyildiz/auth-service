@@ -1,6 +1,6 @@
 # Auth Service
 
-This service caters to signup and login use cases.
+This service caters to signup and login use cases. 
 
 ## Postman Collection
 You can use the Login and Signup requests provided in the attached Postman file (`Melih-v1.postman_collection.json`), located under the root directory.
@@ -29,3 +29,6 @@ A successful login responds with a signed JWT token, which can be used on auctio
 H2 database is available on [http://localhost:8081/h2-console/](http://localhost:8081/h2-console/) with the following credentials:
 - Username: sa
 - Password: password
+
+## Tests
+Tests are located under src/test folder
